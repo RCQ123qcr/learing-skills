@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript 基础知识练习</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+      background: #f0f4f8;
+      color: #2d3748;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: #2b6cb0;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #718096;
+      margin-bottom: 36px;
+      font-size: 0.95rem;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #2b6cb0, #3182ce);
+      color: #fff;
+    }
+
+    .section-header .icon { font-size: 1.4rem; }
+    .section-header h2 { font-size: 1.1rem; font-weight: 600; }
+
+    .section-body { padding: 20px 24px; }
+
+    pre {
+      background: #1a202c;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      margin-bottom: 14px;
+    }
+
+    .kw  { color: #fc8181; }   /* 关键字 */
+    .fn  { color: #68d391; }   /* 函数名 */
+    .str { color: #fbd38d; }   /* 字符串 */
+    .num { color: #76e4f7; }   /* 数字 */
+    .cmt { color: #718096; font-style: italic; } /* 注释 */
+    .op  { color: #e9d8fd; }   /* 运算符 */
+
+    .output-box {
+      background: #ebf8ff;
+      border-left: 4px solid #3182ce;
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      font-family: "Consolas", monospace;
+      font-size: 0.87rem;
+      color: #2c5282;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .output-label {
+      font-size: 0.78rem;
+      color: #a0aec0;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    footer {
+      text-align: center;
+      color: #a0aec0;
+      font-size: 0.82rem;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📘 JavaScript 基础知识练习</h1>
+<p class="subtitle">变量定义 · 变量类型 · 表达式 · 流程控制 · 函数</p>
+
+<!-- ①  变量定义 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">📦</span>
+    <h2>一、变量的定义（var / let / const）</h2>
+  </div>
+  <div class="section-body">
+    <pre>
+<span class="cmt">// var —— 函数作用域，可重复声明，存在变量提升</span>
+<span class="kw">var</span> city <span class="op">=</span> <span class="str">"北京"</span>;
+
+<span class="cmt">// let —— 块级作用域，不可重复声明</span>
+<span class="kw">let</span> score <span class="op">=</span> <span class="num">95</span>;
+score <span class="op">=</span> <span class="num">98</span>;            <span class="cmt">// 允许重新赋值</span>
+
+<span class="cmt">// const —— 块级作用域，声明后不可重新赋值</span>
+<span class="kw">const</span> PI <span class="op">=</span> <span class="num">3.14159</span>;
+<span class="cmt">// PI = 3;             // ❌ 报错：常量不可修改</span>
+
+console.<span class="fn">log</span>(city, score, PI);
+    </pre>
+    <div class="output-label">▶ 控制台输出</div>
+    <div class="output-box" id="out-var"></div>
+  </div>
+</div>
+
+<!-- ② 变量类型 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🏷️</span>
+    <h2>二、变量类型（7 种基本 + 引用类型）</h2>
+  </div>
+  <div class="section-body">
+    <pre>
+<span class="cmt">// 基本类型</span>
+<span class="kw">let</span> name    <span class="op">=</span> <span class="str">"Alice"</span>;           <span class="cmt">// String</span>
+<span class="kw">let</span> age     <span class="op">=</span> <span class="num">20</span>;                <span class="cmt">// Number</span>
+<span class="kw">let</span> price   <span class="op">=</span> <span class="num">9.99</span>;              <span class="cmt">// Number (浮点)</span>
+<span class="kw">let</span> isPass  <span class="op">=</span> <span class="kw">true</span>;              <span class="cmt">// Boolean</span>
+<span class="kw">let</span> nothing <span class="op">=</span> <span class="kw">null</span>;              <span class="cmt">// Null</span>
+<span class="kw">let</span> undef;                       <span class="cmt">// Undefined</span>
+<span class="kw">const</span> id    <span class="op">=</span> Symbol(<span class="str">"uid"</span>);    <span class="cmt">// Symbol</span>
+
+<span class="cmt">// 引用类型</span>
+<span class="kw">let</span> arr  <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];            <span class="cmt">// Array</span>
+<span class="kw">let</span> obj  <span class="op">=</span> { x: <span class="num">10</span>, y: <span class="num">20</span> };     <span class="cmt">// Object</span>
+
+<span class="cmt">// typeof 检测类型</span>
+console.<span class="fn">log</span>(<span class="kw">typeof</span> name, <span class="kw">typeof</span> age, <span class="kw">typeof</span> isPass,
+            <span class="kw">typeof</span> nothing, <span class="kw">typeof</span> undef, <span class="kw">typeof</span> arr);
+    </pre>
+    <div class="output-label">▶ 控制台输出</div>
+    <div class="output-box" id="out-type"></div>
+  </div>
+</div>
+
+<!-- ③ 表达式 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🔢</span>
+    <h2>三、表达式（算术 / 比较 / 逻辑 / 三元）</h2>
+  </div>
+  <div class="section-body">
+    <pre>
+<span class="kw">let</span> a <span class="op">=</span> <span class="num">10</span>, b <span class="op">=</span> <span class="num">3</span>;
+
+<span class="cmt">// 算术表达式</span>
+console.<span class="fn">log</span>(<span class="str">"加:"</span>, a<span class="op">+</span>b, <span class="str">"减:"</span>, a<span class="op">-</span>b, <span class="str">"乘:"</span>, a<span class="op">*</span>b,
+            <span class="str">"除:"</span>, a<span class="op">/</span>b, <span class="str">"取余:"</span>, a<span class="op">%</span>b, <span class="str">"幂:"</span>, a<span class="op">**</span>b);
+
+<span class="cmt">// 比较表达式（== 宽松 vs === 严格）</span>
+console.<span class="fn">log</span>(<span class="str">"10 == '10':"</span>, <span class="num">10</span> <span class="op">==</span>  <span class="str">'10'</span>);   <span class="cmt">// true (类型转换)</span>
+console.<span class="fn">log</span>(<span class="str">"10 === '10':"</span>, <span class="num">10</span> <span class="op">===</span> <span class="str">'10'</span>);   <span class="cmt">// false (严格)</span>
+
+<span class="cmt">// 逻辑表达式</span>
+console.<span class="fn">log</span>(<span class="str">"&&:"</span>, <span class="kw">true</span> <span class="op">&&</span> <span class="kw">false</span>,
+            <span class="str">"||:"</span>, <span class="kw">true</span> <span class="op">||</span> <span class="kw">false</span>,
+            <span class="str">"!:"</span>, <span class="op">!</span><span class="kw">true</span>);
+
+<span class="cmt">// 三元表达式</span>
+<span class="kw">let</span> grade <span class="op">=</span> a <span class="op">>=</span> <span class="num">10</span> <span class="op">?</span> <span class="str">"优秀"</span> <span class="op">:</span> <span class="str">"良好"</span>;
+console.<span class="fn">log</span>(<span class="str">"成绩等级:"</span>, grade);
+    </pre>
+    <div class="output-label">▶ 控制台输出</div>
+    <div class="output-box" id="out-expr"></div>
+  </div>
+</div>
+
+<!-- ④ 流程控制 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🔀</span>
+    <h2>四、流程控制（if / switch / for / while）</h2>
+  </div>
+  <div class="section-body">
+    <pre>
+<span class="cmt">// ① if / else if / else</span>
+<span class="kw">let</span> points <span class="op">=</span> <span class="num">78</span>;
+<span class="kw">if</span> (points <span class="op">>=</span> <span class="num">90</span>)      console.<span class="fn">log</span>(<span class="str">"A 优秀"</span>);
+<span class="kw">else if</span> (points <span class="op">>=</span> <span class="num">75</span>) console.<span class="fn">log</span>(<span class="str">"B 良好"</span>);
+<span class="kw">else if</span> (points <span class="op">>=</span> <span class="num">60</span>) console.<span class="fn">log</span>(<span class="str">"C 及格"</span>);
+<span class="kw">else</span>                   console.<span class="fn">log</span>(<span class="str">"D 不及格"</span>);
+
+<span class="cmt">// ② switch</span>
+<span class="kw">let</span> day <span class="op">=</span> <span class="num">3</span>;
+<span class="kw">switch</span> (day) {
+  <span class="kw">case</span> <span class="num">1</span>: console.<span class="fn">log</span>(<span class="str">"周一"</span>); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">2</span>: console.<span class="fn">log</span>(<span class="str">"周二"</span>); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">3</span>: console.<span class="fn">log</span>(<span class="str">"周三"</span>); <span class="kw">break</span>;
+  <span class="kw">default</span>: console.<span class="fn">log</span>(<span class="str">"其他"</span>);
+}
+
+<span class="cmt">// ③ for 循环 —— 累加 1~5</span>
+<span class="kw">let</span> sum <span class="op">=</span> <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="num">1</span>; i <span class="op"><=</span> <span class="num">5</span>; i<span class="op">++</span>) sum <span class="op">+=</span> i;
+console.<span class="fn">log</span>(<span class="str">"1+2+3+4+5 ="</span>, sum);
+
+<span class="cmt">// ④ while 循环</span>
+<span class="kw">let</span> n <span class="op">=</span> <span class="num">1</span>, product <span class="op">=</span> <span class="num">1</span>;
+<span class="kw">while</span> (n <span class="op"><=</span> <span class="num">5</span>) { product <span class="op">*=</span> n; n<span class="op">++</span>; }
+console.<span class="fn">log</span>(<span class="str">"5! ="</span>, product);
+
+<span class="cmt">// ⑤ for...of 遍历数组</span>
+<span class="kw">let</span> fruits <span class="op">=</span> [<span class="str">"苹果"</span>, <span class="str">"香蕉"</span>, <span class="str">"橙子"</span>];
+<span class="kw">let</span> fruitStr <span class="op">=</span> <span class="str">""</span>;
+<span class="kw">for</span> (<span class="kw">let</span> f <span class="kw">of</span> fruits) fruitStr <span class="op">+=</span> f <span class="op">+</span> <span class="str">" "</span>;
+console.<span class="fn">log</span>(<span class="str">"水果:"</span>, fruitStr.<span class="fn">trim</span>());
+    </pre>
+    <div class="output-label">▶ 控制台输出</div>
+    <div class="output-box" id="out-flow"></div>
+  </div>
+</div>
+
+<!-- ⑤ 函数 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">⚙️</span>
+    <h2>五、函数（声明式 / 表达式 / 箭头函数 / 递归 / 闭包）</h2>
+  </div>
+  <div class="section-body">
+    <pre>
+<span class="cmt">// ① 函数声明（有提升）</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name <span class="op">=</span> <span class="str">"同学"</span>) {
+  <span class="kw">return</span> <span class="str">`你好，${name}！`</span>;
+}
+console.<span class="fn">log</span>(<span class="fn">greet</span>(<span class="str">"小明"</span>), <span class="fn">greet</span>());
+
+<span class="cmt">// ② 函数表达式</span>
+<span class="kw">const</span> <span class="fn">square</span> <span class="op">=</span> <span class="kw">function</span>(x) { <span class="kw">return</span> x <span class="op">*</span> x; };
+console.<span class="fn">log</span>(<span class="str">"3² ="</span>, <span class="fn">square</span>(<span class="num">3</span>));
+
+<span class="cmt">// ③ 箭头函数（简洁语法）</span>
+<span class="kw">const</span> <span class="fn">add</span> <span class="op">=</span> (x, y) <span class="op">=></span> x <span class="op">+</span> y;
+console.<span class="fn">log</span>(<span class="str">"7 + 8 ="</span>, <span class="fn">add</span>(<span class="num">7</span>, <span class="num">8</span>));
+
+<span class="cmt">// ④ 递归函数 —— 斐波那契数列</span>
+<span class="kw">function</span> <span class="fn">fib</span>(n) {
+  <span class="kw">if</span> (n <span class="op"><=</span> <span class="num">1</span>) <span class="kw">return</span> n;
+  <span class="kw">return</span> <span class="fn">fib</span>(n <span class="op">-</span> <span class="num">1</span>) <span class="op">+</span> <span class="fn">fib</span>(n <span class="op">-</span> <span class="num">2</span>);
+}
+console.<span class="fn">log</span>(<span class="str">"fib(8) ="</span>, <span class="fn">fib</span>(<span class="num">8</span>));
+
+<span class="cmt">// ⑤ 闭包 —— 私有计数器</span>
+<span class="kw">function</span> <span class="fn">makeCounter</span>() {
+  <span class="kw">let</span> count <span class="op">=</span> <span class="num">0</span>;
+  <span class="kw">return</span> () <span class="op">=></span> <span class="op">++</span>count;
+}
+<span class="kw">const</span> counter <span class="op">=</span> <span class="fn">makeCounter</span>();
+console.<span class="fn">log</span>(<span class="str">"计数:"</span>, <span class="fn">counter</span>(), <span class="fn">counter</span>(), <span class="fn">counter</span>());
+    </pre>
+    <div class="output-label">▶ 控制台输出</div>
+    <div class="output-box" id="out-fn"></div>
+  </div>
+</div>
+
+<footer>JS 基础练习页面 · RCQ123qcr · 2026</footer>
+
+<!-- ===== 实际运行脚本 ===== -->
+<script>
+  /* ---- 工具：捕获 console.log 输出到指定元素 ---- */
+  function capture(id, fn) {
+    const box = document.getElementById(id);
+    const orig = console.log;
+    const lines = [];
+    console.log = (...args) => {
+      lines.push(args.map(a =>
+        (typeof a === 'object' && a !== null) ? JSON.stringify(a) : String(a)
+      ).join(' '));
+    };
+    try { fn(); } catch(e) { lines.push('❌ 错误: ' + e.message); }
+    console.log = orig;
+    box.textContent = lines.join('\n');
+  }
+
+  /* ---- ① 变量定义 ---- */
+  capture('out-var', () => {
+    var city = "北京";
+    let score = 95;
+    score = 98;
+    const PI = 3.14159;
+    console.log(city, score, PI);
+  });
+
+  /* ---- ② 变量类型 ---- */
+  capture('out-type', () => {
+    let name    = "Alice";
+    let age     = 20;
+    let price   = 9.99;
+    let isPass  = true;
+    let nothing = null;
+    let undef;
+    const id    = Symbol("uid");
+    let arr  = [1, 2, 3];
+    let obj  = { x: 10, y: 20 };
+    console.log(
+      "string:", typeof name,
+      "| number:", typeof age,
+      "| boolean:", typeof isPass,
+      "| null→", typeof nothing,   // "object"（历史遗留）
+      "| undefined:", typeof undef,
+      "| symbol:", typeof id,
+      "| array→", typeof arr       // "object"
+    );
+    console.log("Array.isArray(arr):", Array.isArray(arr));
+    console.log("null 实际是 Null，typeof 返回 'object' 是历史遗留问题");
+  });
+
+  /* ---- ③ 表达式 ---- */
+  capture('out-expr', () => {
+    let a = 10, b = 3;
+    console.log("算术 —— 加:", a+b, "减:", a-b, "乘:", a*b,
+                "除:", (a/b).toFixed(2), "取余:", a%b, "幂:", a**b);
+    console.log("比较 —— 10 == '10':", 10 == '10', " | 10 === '10':", 10 === '10');
+    console.log("逻辑 —— &&:", true && false, " | ||:", true || false, " | !:", !true);
+    let grade = a >= 10 ? "优秀" : "良好";
+    console.log("三元 —— 成绩等级:", grade);
+  });
+
+  /* ---- ④ 流程控制 ---- */
+  capture('out-flow', () => {
+    // if/else if
+    let points = 78;
+    if      (points >= 90) console.log("if/else → A 优秀");
+    else if (points >= 75) console.log("if/else → B 良好");
+    else if (points >= 60) console.log("if/else → C 及格");
+    else                   console.log("if/else → D 不及格");
+
+    // switch
+    let day = 3;
+    switch (day) {
+      case 1: console.log("switch → 周一"); break;
+      case 2: console.log("switch → 周二"); break;
+      case 3: console.log("switch → 周三"); break;
+      default: console.log("switch → 其他");
+    }
+
+    // for 累加
+    let sum = 0;
+    for (let i = 1; i <= 5; i++) sum += i;
+    console.log("for → 1+2+3+4+5 =", sum);
+
+    // while 阶乘
+    let n = 1, product = 1;
+    while (n <= 5) { product *= n; n++; }
+    console.log("while → 5! =", product);
+
+    // for...of
+    let fruits = ["苹果", "香蕉", "橙子"];
+    let fruitStr = "";
+    for (let f of fruits) fruitStr += f + " ";
+    console.log("for...of → 水果:", fruitStr.trim());
+  });
+
+  /* ---- ⑤ 函数 ---- */
+  capture('out-fn', () => {
+    // 函数声明
+    function greet(name = "同学") { return `你好，${name}！`; }
+    console.log("函数声明 →", greet("小明"), "|", greet());
+
+    // 函数表达式
+    const square = function(x) { return x * x; };
+    console.log("函数表达式 → 3² =", square(3));
+
+    // 箭头函数
+    const add = (x, y) => x + y;
+    console.log("箭头函数 → 7 + 8 =", add(7, 8));
+
+    // 递归 - 斐波那契
+    function fib(n) {
+      if (n <= 1) return n;
+      return fib(n - 1) + fib(n - 2);
+    }
+    console.log("递归(斐波那契) → fib(8) =", fib(8));
+
+    // 闭包
+    function makeCounter() {
+      let count = 0;
+      return () => ++count;
+    }
+    const counter = makeCounter();
+    console.log("闭包(计数器) →", counter(), counter(), counter());
+  });
+</script>
+</body>
+</html>
